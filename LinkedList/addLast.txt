@@ -1,0 +1,135 @@
+// By Class.
+
+#include<iostream>
+using namespace std;
+
+class node
+{
+ public:
+  int data;
+  node *next;
+  
+  node(int d)
+  {
+   data=d;
+   next=NULL;
+  }
+};
+
+ node* head=NULL;
+ node* tail=NULL;
+ int size=0;
+void takeInput(int data)
+{
+// int data;
+// cin>>data;
+  node* newnode=new node(data);
+  if(head==NULL)
+  {
+   head=newnode;
+   tail=newnode;  
+  }
+  else
+  {
+   tail->next=newnode;
+   tail=tail->next;
+  }
+  size++;
+ cout<<tail->data<<endl;
+// return head;
+ 
+// size++;
+ 
+}
+int main()
+{
+ string s;
+ cin>>s;
+ while(s!="quit")
+ {
+  if(s=="addLast")
+  {
+   int data;
+   cin>>data;
+   takeInput(data);   
+  }
+  
+  cin>>s;
+ }
+ cout<<size<<endl;
+ if(tail!=NULL)
+ {
+  cout<<tail->data<<endl; 
+ }
+ 
+}
+
+
+
+// By Struct.
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct node{
+    int data;
+    node *next;
+    
+    node(int val){
+        data = val;
+        next = nullptr;
+    }
+};
+
+node *head, *tail = nullptr;
+int size = 0;
+
+void addLast(int val){
+    node *newnode = new node(val);
+    if(head == nullptr){
+        head = newnode;
+        tail = newnode;
+    }
+    else{
+        tail->next = newnode;
+        tail = tail->next;
+    }
+    size++;
+}
+
+void display(){
+    while(head != nullptr){
+        cout<<head->data<<endl;
+        head = head->next;
+    }
+}
+
+int main(){
+    string s;
+    int val;
+    cin>>s;
+    
+    if(s == "quit")
+        cout<<0<<endl;
+        
+    else{
+        while(s != "quit"){
+            if(s == "addLast")
+            {
+                cin>>val;
+                
+                addLast(val);
+            }
+            cin>>s;
+        }
+        display();
+        if(size > 0)
+        cout<<size<<endl;
+        if(tail->data)
+        cout<<tail->data;
+    }
+    
+    
+}
+
+
