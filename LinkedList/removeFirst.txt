@@ -1,0 +1,92 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node *next;
+    
+    node(int val)
+    {
+        data = val;
+        next = NULL;
+    }
+};
+
+node *head = NULL;
+node *tail = NULL;
+
+int size = 0;
+
+void addLast(int val)
+{
+    node *newnode = new node(val);
+    
+    if(head == NULL)
+    {
+        head = newnode;
+        tail = newnode;
+    }
+    
+    else{
+        tail->next = newnode;
+        tail = tail->next;
+    }
+    
+    size++;
+}
+
+void removeFirst(){
+    if(head)
+    {
+        node *temp = head;
+        head = head->next;
+        delete(temp);
+        size--;
+    }
+    else{
+        cout<<"List is empty"<<endl;
+    }
+}
+
+void display(){
+    node *ptr = head;
+    while(ptr)
+    {
+        cout<<ptr->data<<" ";
+        ptr = ptr->next;
+    }
+    cout<<endl;
+}
+
+
+int main(){
+    string s;
+    cin>>s;
+    while(s != "quit")
+    {
+        if(s == "addLast")
+        {
+            int val;
+            cin>>val;
+            addLast(val);
+        }
+        
+        else if(s == "display")
+        {
+            display();
+        }
+        
+        else if(s == "removeFirst")
+        {
+            removeFirst();
+        }
+        
+        else if(s == "size")
+        {
+            cout<<size<<endl;
+        }
+        
+        cin>>s;
+    }
+}
