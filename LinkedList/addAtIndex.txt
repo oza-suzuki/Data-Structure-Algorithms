@@ -1,0 +1,190 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node *next;
+    
+    node(int val)
+    {
+        data = val;
+        next = NULL;
+    }
+};
+
+node *head, *tail = NULL;
+int size = 0;
+
+void addLast(int val){
+    node *newnode = new node(val);
+    
+    if(head == NULL)
+    {
+        head = newnode;
+        tail = newnode;
+    }
+    else{
+        tail->next = newnode;
+        tail = newnode;
+    }
+    size++;
+}
+
+void removeFirst(){
+    if(head){
+        head = head->next;
+        size--;
+    }
+    else{
+        cout<<"List is empty"<<endl;
+    }
+}
+
+void getFirst(){
+    if(head){
+        cout<<head->data<<endl;
+    }
+    else{
+        cout<<"List is empty"<<endl;
+    }
+}
+
+void getLast(){
+    if(tail){
+        cout<<tail->data<<endl;
+    }
+    else{
+        cout<<"List is empty"<<endl;
+    }
+}
+
+void getAt(int idx){
+    if(idx < size && idx >= 0)
+    {
+        node *temp = head;
+        for(int i=0;i<idx;i++){
+        temp = temp->next;
+        }
+        cout<<temp->data<<endl;
+    }
+    else{
+        cout<<"Invalid arguments"<<endl;
+    }
+
+}
+
+void addFirst(int val){
+    node *newnode = new node(val);
+    
+    if(head == NULL)
+    {
+        head = newnode;
+        tail = newnode;
+    }
+    
+    else{
+        newnode->next = head;
+        head = newnode;
+    }
+    size++;
+}
+
+void addAt(int val, int idx){
+    
+    if(idx < 0 || idx > size){
+        cout<<"Invalid arguments"<<endl;
+    }
+
+    else if(idx == 0){
+        addFirst(val);
+    }
+    
+    else if(idx == size){
+        addLast(val);
+    }
+    
+    else{
+        node *newnode = new node(val);
+        
+        node *curr = head;
+        node *prev;
+        for(int i = 0; i < idx; i++){
+            prev = curr;
+            curr = curr->next;
+        }
+        newnode->next = curr;
+        prev->next = newnode;
+        
+        size++;
+    }
+    
+}
+
+void display(){
+    node *ptr = head;
+    while(ptr)
+    {
+        cout<<ptr->data<<" ";
+        ptr = ptr->next;
+    }
+    cout<<endl;
+}
+
+
+int main()
+{
+    string s;
+    cin>>s;
+    int val;
+    int idx;
+    while(s != "quit"){
+        
+        if(s == "addLast"){
+            cin>>val;
+            addLast(val);
+        }
+        
+        else if(s == "removeFirst"){
+            removeFirst();
+ 
+        }
+        
+        else if(s == "getFirst"){
+            getFirst();
+        }
+        
+        else if(s == "getLast"){
+            getLast();
+        }
+        
+        else if(s == "getAt"){
+            cin>>idx;
+            getAt(idx);
+        }
+        
+        else if(s == "size"){
+            cout<<size<<endl;
+        }
+        
+        else if(s == "display"){
+            display();
+        }
+        
+        else if(s == "addFirst"){
+            cin>>val;
+            addFirst(val);
+        }
+        
+        else if(s == "addAt"){
+            cin>>idx;
+            cin>>val;
+            addAt(val, idx);
+        }
+        
+        cin>>s;
+        
+    }
+    
+}
+
