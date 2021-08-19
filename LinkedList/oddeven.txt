@@ -1,0 +1,145 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node *next;
+    
+    node(int val)
+    {
+        data = val;
+        next = NULL;
+    }
+};
+
+node *head, *tail = NULL;
+int size = 0;
+
+void addFirst(int val){
+    node *newnode = new node(val);
+    
+    if(head == NULL)
+    {
+        head = newnode;
+        tail = newnode;
+    }
+    
+    else{
+        newnode->next = head;
+        head = newnode;
+    }
+    size++;
+}
+
+void addLast(int val){
+    node *newnode = new node(val);
+    
+    if(head == NULL)
+    {
+        head = newnode;
+        tail = newnode;
+    }
+    else{
+        tail->next = newnode;
+        tail = newnode;
+    }
+    size++;
+}
+
+void display(){
+    node *ptr = head;
+    while(ptr)
+    {
+        cout<<ptr->data<<" ";
+        ptr = ptr->next;
+    }
+    cout<<endl;
+}
+
+void oddeven()
+{
+    
+   //approach 1 using evenodd pointers.    
+   node *oddstart = NULL;
+   node *oddend = NULL;
+   node *evenstart = NULL;
+   node *evenend = NULL;
+   node *temp = head;
+   
+   while(temp != NULL)
+   {
+       if(temp->data % 2 == 1)
+       {
+           if(oddstart == NULL)
+           {
+               oddstart = temp;
+               oddend = oddstart;
+           }
+           else{
+                oddend->next = temp;
+                oddend = oddend->next; 
+           }
+           
+       }
+       
+       else{
+           if(evenstart == NULL)
+           {
+               evenstart = temp;
+               evenend = evenstart;
+           }
+           else{
+               evenend->next = temp;
+               evenend = evenend->next;
+           }
+       }
+       
+       temp = temp->next;
+   }
+   
+   if(oddstart == NULL)
+   {
+       head = evenstart;
+       tail = evenend;
+   }
+   
+   else if(evenstart == NULL)
+   {
+       head = oddstart;
+       tail = oddend;
+   }
+   
+   else{
+           evenend->next = NULL;
+           oddend->next = evenstart;
+           head = oddstart;
+           tail = evenend;
+   }
+
+}
+
+
+
+int main()
+{
+    int n;
+    cin>>n;
+    
+    while(n--){
+        int val;
+        cin>>val;
+        addLast(val);
+    }
+    
+    int first,last = 0;
+    cin>>first;
+    cin>>last;
+    
+    display();
+    oddeven();
+    display();
+    addFirst(first);
+    addLast(last);
+    display();
+}
