@@ -1,0 +1,45 @@
+O(n) for t and s
+
+class Solution {
+public:
+    
+    bool getPath(TreeNode* root, vector<TreeNode*> &arr, int x)
+    {
+        if(root == NULL)
+            return false;
+        
+        arr.push_back(root);
+        
+        if(root->val == x)
+            return true;
+        
+        if(getPath(root->left, arr, x) || getPath(root->right, arr, x))
+            return true;
+        
+        arr.pop_back();
+        return false;
+    }
+    
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) 
+    {
+        vector<TreeNode*>path1;
+        vector<TreeNode*>path2;
+        
+        if(root == NULL)
+            return root;
+        
+        getPath(root, path1, p->val);
+        getPath(root, path2, q->val);
+        TreeNode *ans;
+        int n = min(path1.size(), path2.size());
+        
+        for(int i=0;i<n; i++)
+        {
+            if(path1[i] == path2[i])
+                ans = path1[i];
+            
+        }
+        
+        return ans;
+    }
+};

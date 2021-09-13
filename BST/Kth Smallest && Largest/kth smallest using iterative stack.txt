@@ -1,0 +1,22 @@
+public int kthSmallest(TreeNode root, int k) {
+     Stack<TreeNode> stack;
+     TreeNode *p = root;
+     int count = 0;
+     
+     while(!stack.isEmpty() || p != null) {
+         if(p != null) {
+             stack.push(p);  // Just like recursion
+             p = p.left;   
+	     //for largest use solve(root->right, k);
+             
+         } else {
+            TreeNode node = stack.top();
+	    stack.pop();
+            if(++count == k) return node.val; 
+            p = node.right;
+	    //for largest use solve(root->left, k);
+         }
+     }
+     
+     return Integer.MIN_VALUE;
+ }

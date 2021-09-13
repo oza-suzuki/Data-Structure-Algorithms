@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int count = 0;
+    int ans;
+    int kthSmallest(TreeNode* root, int k) {
+        solve(root , k);
+        return ans;
+    }
+    
+    void solve(TreeNode* root , int k){
+        if(root){
+            solve(root->left , k);
+	    //for largest use solve(root->right, k);
+            count++;
+            if(count == k){
+                ans =  root->val;
+                return;
+            }
+            solve(root->right , k);
+	    //for largest use solve(root->left, k);
+        }
+    }
+};

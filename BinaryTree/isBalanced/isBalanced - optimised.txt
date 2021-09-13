@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int flag = 1;
+    
+    int solve(TreeNode *root)
+    {
+        if(!root)
+            return 0;
+        
+        int l = solve(root->left);
+        int r = solve(root->right);
+        
+        if(abs(l - r) > 1)
+            flag = 0;
+        
+        return max(l, r) + 1;
+    }
+    
+    bool isBalanced(TreeNode* root) {
+        solve(root);
+        return flag;
+    }
+};
