@@ -1,0 +1,107 @@
+
+
+
+
+
+//Iterative
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    // Using dummy Node + New linkedlist.
+    ListNode* mergeTwoLists(ListNode* left, ListNode* right) {
+        
+        ListNode *dummy = new ListNode(-1);
+        ListNode *temp_head = dummy;
+        
+        while(left && right)
+        {
+            if(left->val <= right->val)
+            {
+                ListNode *newnode = new ListNode(left->val);
+                dummy->next = newnode;
+                left = left->next;
+            }
+            
+            else{
+                ListNode *newnode = new ListNode(right->val);
+                dummy->next = newnode;
+                right = right->next;
+            }
+            
+            dummy = dummy->next;
+        }
+        
+        while(left)
+        {
+            ListNode *newnode = new ListNode(left->val);
+            dummy->next = newnode;
+            dummy = dummy->next;
+            left = left->next;
+        }
+        
+        while(right)
+        {
+            ListNode *newnode = new ListNode(right->val);
+            dummy->next = newnode;
+            dummy = dummy->next;
+            right = right->next;
+        }
+        
+        return temp_head->next;
+    }
+};
+
+
+//Recursive
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    // Using dummy Node + New linkedlist.
+    ListNode* mergeTwoLists(ListNode* left, ListNode* right) {
+        
+        if(!left && !right)
+            return NULL;
+        
+        else if(!left)
+            return right;
+        
+        else if(!right)
+            return left;
+        
+        ListNode *temp_head;
+        
+        if(left->val <= right->val)
+        {
+            temp_head = left;
+            temp_head->next = mergeTwoLists(left->next, right);
+        }
+        
+        else{
+            temp_head = right;
+            temp_head->next = mergeTwoLists(left, right->next);
+        }
+        
+        return temp_head;
+    }
+};
