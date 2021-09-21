@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void subarray(string &str, int n, int start, int end)
+{
+    
+    if(end == n)
+    {
+        return;
+    }
+    
+    else if (start > end)
+        subarray(str, n, 0, end + 1);
+    
+    else{
+        cout << "[";
+        for (int i = start; i < end; i++){
+            cout << str[i] << ", ";
+        }
+         
+        cout << str[end] << "]" << endl;
+        subarray(str, n ,start + 1, end);
+        
+        return;
+    }
+    
+}
+
+
+int main()
+{
+    int n;cin>>n;
+    string str;
+    cin>>str;
+    subarray(str, n , 0, 0);
+    
+}

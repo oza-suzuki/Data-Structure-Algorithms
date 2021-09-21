@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n;cin>>n;
+    string str;
+    cin>>str;
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i;j<n;j++)
+        {
+            for(int k=i;k<=j;k++)
+            {
+                cout<<str[k]<<" ";
+            }
+            cout<<endl;
+        }
+    }
+    
+}
+
+
+// Using susbstr
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n;cin>>n;
+    string str;
+    cin>>str;
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i;j<n;j++)
+        {
+            // for(int k=i;k<=j;k++)
+            // {
+            //     cout<<str[k]<<" ";
+            // }
+            cout<<str.substr(i,j+1);
+            cout<<endl;
+        }
+    }
+    
+}
+
+
