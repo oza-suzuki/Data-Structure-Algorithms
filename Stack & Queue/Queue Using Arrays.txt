@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define n 1000
+
+class Queue{
+    int *arr;
+    int front, rear;
+    public:
+        int capacity;
+    
+    public:
+    Queue(){
+        arr = new int [n];
+        front = rear = capacity = 0;
+    }
+    
+    void push(int x){
+        if(capacity == n-1){
+            cout<<"Queue Overflow"<<endl;
+            return;
+        }
+        arr[rear % n] = x;
+        rear++;
+        capacity++;
+    }
+    
+    int pop(){
+        if(capacity == 0){
+            cout<<"Queue Underflow"<<endl;
+            return -1;
+        }
+        int temp = arr[front % n];
+        arr[front % n] = -1;
+        front++;
+        capacity--;
+        return temp;
+    }
+    
+    int top(){
+        if(capacity == 0){
+            cout<<"Queue Underflow"<<endl;
+            return -1;
+        }
+        return arr[front % n];
+    }
+    
+    bool Empty(){
+        if(capacity == 0)
+            return true;
+        return false;
+    }
+    
+    int size(){
+        return capacity;
+    }
+};
+
+int main(){
+    Queue q;
+    q.push(10);
+    q.push(20);
+    cout<<q.capacity<<endl;
+    cout<<q.pop()<<endl;
+    cout<<q.top()<<endl;
+    cout<<q.capacity<<endl;
+    if(q.Empty())
+        cout<<"true";
+    else
+        cout<<"false";
+}

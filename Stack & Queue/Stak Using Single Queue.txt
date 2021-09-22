@@ -1,0 +1,73 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define n 1000
+
+class Stack{
+    int *arr;
+    int front, rear;
+    public:
+        int capacity;
+    
+    public:
+    Stack(){
+        arr = new int [n];
+        front = rear = capacity = 0;
+    }
+    
+    void push(int x){
+        if(capacity == n-1){
+            cout<<"Queue Overflow"<<endl;
+            return;
+        }
+        arr[rear] = x;
+        rear++;
+        capacity++;
+    }
+    
+    int pop(){
+        if(capacity == 0){
+            cout<<"Queue Underflow"<<endl;
+            return -1;
+        }
+        rear--;
+        int temp = arr[rear];
+        arr[rear] = -1;
+        rear--;
+        capacity--;
+        return temp;
+
+    }
+    
+    int top(){
+        if(capacity == 0){
+            cout<<"Queue Underflow"<<endl;
+            return -1;
+        }
+        return arr[rear];
+    }
+    
+    bool Empty(){
+        if(capacity == 0)
+            return true;
+        return false;
+    }
+    
+    int size(){
+        return capacity;
+    }
+};
+
+int main(){
+    Stack q;
+    q.push(10);
+    q.push(20);
+    cout<<q.capacity<<endl;
+    cout<<q.pop()<<endl;
+    cout<<q.top()<<endl;
+    //q.pop();
+    if(q.Empty())
+        cout<<"true";
+    else
+        cout<<"false";
+}
