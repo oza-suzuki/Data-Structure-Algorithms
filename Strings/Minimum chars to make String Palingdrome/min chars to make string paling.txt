@@ -1,0 +1,68 @@
+Just Take Lps - s.length();
+//Brute - Recursion
+class Solution {
+public:
+    
+    int lps_helper(string &s, int start, int end){
+        if(start == end)
+            return 1;
+        
+        else if(s[start] == s[end] && start+1 == end){
+            return 2;
+        }
+        
+        else if(s[start] == s[end]){
+            return lps_helper(s, start+1, end-1) + 2;
+        }
+        
+        else{
+            return max( lps_helper(s, start+1, end) , lps_helper(s, start, end-1));
+        }
+    }
+    
+    int minInsertions(string s) {
+        int lps = lps_helper(s, 0, s.length()-1);
+        int n = s.length();
+        
+        return n - lps;
+    }
+};
+
+---
+
+//Bettter - Memoization
+class Solution {
+public:
+    
+    int lps_helper(string &s, int start, int end, vector<vector<int>> &qb){
+        
+        if(start == end)
+            return 1;
+        
+        else if(s[start] == s[end] && start+1 == end){
+            return 2;
+        }
+        
+        if(qb[start][end] != -1)
+            return qb[start][end];
+        
+        else if(s[start] == s[end]){
+             qb[start][end] = lps_helper(s, start+1, end-1, qb) + 2;
+             return qb[start][end];
+        }
+        
+        else{
+             qb[start][end] = max( lps_helper(s, start+1, end, qb) , lps_helper(s, start, end-1, qb));
+             return qb[start][end];
+        }
+    }
+    
+    int minInsertions(string s) {
+        int n = s.length();
+
+        vector<vector<int>>qb(n, vector<int>(n, -1));        
+        int lps = lps_helper(s, 0, n - 1, qb);
+        
+        return n - lps;
+    }
+};
