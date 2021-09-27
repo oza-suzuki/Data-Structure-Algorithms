@@ -1,0 +1,136 @@
+// Brute - 2 For Loop
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        
+        int n1 = s.length(),
+            n2 = t.length();
+        
+        if(n1 != n2)
+            return false;
+
+        int c = 0;
+        
+        for(int i=0;i<n1;i++)
+        {
+            for(int j=0;j<n2;j++)
+            {
+                if(s[i] == t[j])
+                {
+                    c++;
+                    break;
+                }
+            }
+        }
+        
+        return (c == n1);
+    }
+};
+
+Failed at:
+31 / 35 test cases passed.
+Status: Wrong Answer
+Submitted: 11 minutes ago
+Input:
+"aacc"
+"ccac"
+Output:
+true
+Expected:
+false
+
+// Brute - Sorting
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        
+        int n1 = s.length(),
+            n2 = t.length();
+        
+        if(n1 != n2)
+            return false;
+        
+        sort(s.begin(), s.end());
+        sort(t.begin(), t.end());
+
+        //int c = 0;
+        
+        // for(int i=0;i<n1;i++)
+        // {
+        //     for(int j=0;j<n2;j++)
+        //     {
+        //         if(s[i] == t[j])
+        //         {
+        //             c++;
+        //             break;
+        //         }
+        //     }
+        // }
+        
+        //return (c == n1);
+        return (s == t);
+    }
+};
+
+
+// Better - Map<char, int>
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        
+        int n1 = s.length(),
+            n2 = t.length();
+        
+        if(n1 != n2)
+            return false;
+        
+        map<char, int>Map;
+        
+        for(int i=0;i<n1;i++)
+        {
+            Map[s[i]]++;
+            Map[t[i]]--;
+        }
+        
+        for(auto ch : Map)
+        {
+            if(ch.second)
+                return false;
+        }
+        
+        return true;
+    }
+};
+
+// Better - Vector
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        
+        int n1 = s.length(),
+            n2 = t.length();
+        
+        if(n1 != n2)
+            return false;
+        
+        vector<int>freq(26);
+        
+        for(int i=0;i<n1;i++)
+        {
+            freq[s[i] - 'a']++;
+            freq[t[i] - 'a']--;
+        }
+        
+        for(auto i : freq)
+        {
+            if(i)
+                return false;
+        }
+        
+        return true;
+    }
+};
